@@ -1,6 +1,7 @@
-{ config, pkgs,lib, ... }:
+{inputs, config, pkgs,lib, ... }:
 
 {
+
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
   home.username = "trevor";
@@ -10,7 +11,6 @@
   #      bash ${builtins.toString ./env.sh}
   # '';
   # };
-
   # This value determines the Home Manager release that your configuration is
   # compatible with. This helps avoid breakage when a new Home Manager release
   # introduces backwards incompatible changes.
@@ -19,12 +19,29 @@
   # want to update the value, then make sure to first check the Home Manager
   # release notes.
   home.stateVersion = "24.05"; # Please read the comment before changing.
+  nixpkgs.config.permittedInsecurePackages = [
+                "electron-27.3.11"
+              ];
+  programs.firefox = {
+    enable = true;
+    profiles.trevor = {
+      extensions = with inputs.firefox-addons.packages."x86_64-linux"; [
+        ublock-origin
+        keepassxc-browser
+      ];
 
+    };
+  };
   # The home.packages option allows you to install Nix packages into your
   # environment.
   home.packages = with pkgs;[
     logseq
     keepassxc
+    flatpak
+    calibre
+    unzip
+    zip
+    htop
    # # fonts?
     # (pkgs.nerdfonts.override { fonts = [ "FantasqueSansMono" ]; })
 

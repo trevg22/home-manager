@@ -5,11 +5,11 @@
   # manage.
   home.username = "trevor";
   home.homeDirectory = "/home/trevor";
-  home.activation={
-  myActivationAction = lib.hm.dag.entryBefore ["writeBoundary"] ''
-       bash ${builtins.toString ./env.sh}
-  '';
-  };
+  #home.activation={
+  # myActivationAction = lib.hm.dag.entryBefore ["writeBoundary"] ''
+  #      bash ${builtins.toString ./env.sh}
+  # '';
+  # };
 
   # This value determines the Home Manager release that your configuration is
   # compatible with. This helps avoid breakage when a new Home Manager release
@@ -29,10 +29,16 @@
     zoxide
     ripgrep
     fzf
-    # # Adds the 'hello' command to your environment. It prints a friendly
-    # # "Hello, world!" when run.
-    # pkgs.hello
-
+    rustup
+    clang
+    nodejs_23
+    cmake
+    ninja
+    sshs
+    clang-tools
+    eza
+    lazygit
+    lazydocker
     # # It is sometimes useful to fine-tune packages, for example, by applying
     # # overrides. You can do that directly here, just don't forget the
     # # parentheses. Maybe you want to install Nerd Fonts with a limited number of
@@ -46,8 +52,24 @@
     #   echo "Hello, ${config.home.username}!"
     # '')
   ];
+  programs.git = {
+    enable = true;
+    lfs.enable=true;
+    extraConfig = {
+      credential.helper = "${
+          pkgs.git.override { withLibsecret = true; }
+        }/bin/git-credential-libsecret";
+    };
+  };
+  # programs.zsh = {
+  #   enable = true;
+  #   dotDir="/home/trevor/.config/zsh";
+  #   sessionVariables = {
+  #     EDITOR = "nvim";
+  #   };
+  # };
 
-  # Home Manager is pretty good at managing dotfiles. The primary way to manage
+    # Home Manager is pretty good at managing dotfiles. The primary way to manage
   # plain files is through 'home.file'.
   home.file = {
     # # Building this configuration will create a copy of 'dotfiles/screenrc' in
@@ -79,7 +101,8 @@
   #  /etc/profiles/per-user/trevor/etc/profile.d/hm-session-vars.sh
   #
   home.sessionVariables = {
-    # EDITOR = "emacs";
+    EDITOR = "nvim";
+
   };
 
   # Let Home Manager install and manage itself.
