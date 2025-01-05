@@ -1,4 +1,4 @@
-{ config, pkgs,lib, ... }:
+{ config, pkgs,lib,hyprland, ... }:
 
 {
   # Home Manager needs a bit of information about you and the paths it should
@@ -13,7 +13,7 @@
           wayland.windowManager.hyprland = {
             enable = true;
             # set the flake package
-            package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
+            package = hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
           };
   # This value determines the Home Manager release that your configuration is
   # compatible with. This helps avoid breakage when a new Home Manager release

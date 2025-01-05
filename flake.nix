@@ -12,6 +12,7 @@
       url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    hyprland.url = "github:hyprwm/Hyprland";
   };
 
   outputs = { self,nixpkgs, home-manager, ... }@inputs:
@@ -25,6 +26,13 @@
           extraSpecialArgs = {inherit inputs; };
 
                     modules=[
+        {
+          wayland.windowManager.hyprland = {
+            enable = true;
+            # set the flake package
+            package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
+          };
+            }
             ./dev.nix
             ./prod.nix
           ];
