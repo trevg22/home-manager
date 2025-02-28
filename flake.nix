@@ -17,8 +17,14 @@
 
   outputs = { self,nixpkgs, home-manager, ... }@inputs:
     let
-      system = "x86_64-linux";
-      pkgs = nixpkgs.legacyPackages.${system};
+      system = "aarch64-linux";
+      #pkgs = nixpkgs.legacyPackages.${system};
+      pkgs = import nixpkgs {
+          system = system;
+        config = {
+          allowUnfree = true; # Enable unfree packages
+        };
+    };
     in {
       homeConfigurations={
         "trevor" = home-manager.lib.homeManagerConfiguration {
@@ -27,11 +33,11 @@
 
                     modules=[
         {
-          wayland.windowManager.hyprland = {
-            enable = true;
-            # set the flake package
-            package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
-          };
+          #wayland.windowManager.hyprland = {
+          #  enable = true;
+          #  # set the flake package
+          #  package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
+          #};
             }
             ./dev.nix
             ./prod.nix

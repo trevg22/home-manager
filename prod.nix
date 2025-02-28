@@ -19,29 +19,30 @@
   # want to update the value, then make sure to first check the Home Manager
   # release notes.
   home.stateVersion = "24.05"; # Please read the comment before changing.
-  nixpkgs.config.permittedInsecurePackages = [
-                "electron-27.3.11"
-              ];
+  #  nixpkgs.config.permittedInsecurePackages = [
+  #              "electron-27.3.11"
+  #];
   programs.firefox = {
     enable = true;
-    profiles.trevor = {
-      extensions = with inputs.firefox-addons.packages."x86_64-linux"; [
-        ublock-origin
-        keepassxc-browser
-      ];
+    #profiles.trevor = {
+    #  extensions = with inputs.firefox-addons.packages."x86_64-linux"; [
+    #    ublock-origin
+    #    keepassxc-browser
+    #  ];
 
-    };
+    #};
   };
   # The home.packages option allows you to install Nix packages into your
   # environment.
   home.packages = with pkgs;[
-    logseq
+    #logseq
     keepassxc
     flatpak
-    calibre
     unzip
     zip
     htop
+    signal-desktop
+    #spotify
     # (pkgs.nerdfonts.override { fonts = [ "FantasqueSansMono" ]; })
 
     # # You can also create simple shell scripts directly inside your
@@ -51,16 +52,16 @@
     #   echo "Hello, ${config.home.username}!"
     # '')
   ];
-  programs.git = {
-    enable = true;
-    lfs.enable=true;
-    extraConfig = {
-      credential.helper = "${
-          pkgs.git.override { withLibsecret = true; }
-        }/bin/git-credential-libsecret";
-    };
-  };
-  # programs.zsh = {
+  # programs.git = {
+  #   enable = true;
+  #   lfs.enable=true;
+  #   extraConfig = {
+  #     credential.helper = "${
+  #         pkgs.git.override { withLibsecret = true; }
+  #       }/bin/git-credential-libsecret";
+  #   };
+  # };
+  # # programs.zsh = {
   #   enable = true;
   #   dotDir="/home/trevor/.config/zsh";
   #   sessionVariables = {

@@ -25,20 +25,18 @@
   home.packages = with pkgs;[
     neovim 
     zellij
-    rustup
     zoxide
     ripgrep
     fzf
-    rustup
-    clang
-    nodejs_23
+    #nodejs
     cmake
     ninja
     sshs
-    clang-tools
     eza
     lazygit
     lazydocker
+    #nodejs_23
+    clang-tools
     # # It is sometimes useful to fine-tune packages, for example, by applying
     # # overrides. You can do that directly here, just don't forget the
     # # parentheses. Maybe you want to install Nerd Fonts with a limited number of
@@ -52,16 +50,17 @@
     #   echo "Hello, ${config.home.username}!"
     # '')
   ];
-  programs.git = {
-    enable = true;
-    lfs.enable=true;
-    extraConfig = {
-      credential.helper = "${
-          pkgs.git.override { withLibsecret = true; }
-        }/bin/git-credential-libsecret";
-    };
-  };
-  # programs.zsh = {
+  
+  # programs.git = {
+  #   enable = true;
+  #   lfs.enable=true;
+  #   extraConfig = {
+  #     credential.helper = "${
+  #         pkgs.git.override { withLibsecret = true; }
+  #       }/bin/git-credential-libsecret";
+  #   };
+  # };
+  # # programs.zsh = {
   #   enable = true;
   #   dotDir="/home/trevor/.config/zsh";
   #   sessionVariables = {
